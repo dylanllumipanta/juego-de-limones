@@ -74,13 +74,27 @@ function detectarAtrapado(){
     if(limonX + ANCHO_LIMON > personajeX &&
         limonX < personajeX + ANCHO_PERSONAJE &&
         limonY + ALTURA_LIMON > personajeY &&
-        limonY < personajeY + ALTURA_PERSONAJE){
+        limonY < personajeY + ALTURA_PERSONAJE
+    ){
         aparecerLimon();
-        puntaje=puntaje+1;
+        puntaje++;
         mostrarEnSpan("txtPuntaje",puntaje);
+        if(puntaje == 3){
+            velocidadCaida = 150;
+            clearInterval(intervalo);
+            intervalo = setInterval(bajarlimon,velocidadCaida);
+        }
+        if(puntaje == 6){
+            velocidadCaida = 100;
+            clearInterval(intervalo);
+            intervalo = setInterval(bajarlimon,velocidadCaida);
+        }
+        if(puntaje == 10){
+            alert("Tienes todos los limones, pero a que costo...");
+            clearInterval(intervalo);
+        }
     }
 }
-
 function detectarPiso(){
     if(limonY + ALTURA_LIMON >=canvas.height - ALTURA_SUELO){
         aparecerLimon();
